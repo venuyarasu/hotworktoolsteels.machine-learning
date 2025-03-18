@@ -1,13 +1,10 @@
-# 📦 Streamlit App Starter Kit 
-```
-⬆️ (Replace above with your app's name)
-```
+# Ⓜ Machine learning app 
 
-Description of the app ...
+Machine learning app to predict the heat-treatment response of hot-work tool steels.
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://hotworktoolsteels.machine-learning.streamlit.app/)
 
 ## GitHub Codespaces
 
