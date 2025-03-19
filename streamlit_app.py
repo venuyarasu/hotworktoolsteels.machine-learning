@@ -1,10 +1,11 @@
 import streamlit as st
-import pandas as pd
 import joblib
 import numpy as np
 import os
+from catboost import Pool
+import catboost
 
-# Load trained models
+# Model file paths (relative to the script location)
 hrc_model_path = 'catboost_hrc.pkl'
 kic_model_path = 'catboost_kic.pkl'
 
@@ -13,15 +14,18 @@ try:
     catboost_hrc = joblib.load(hrc_model_path)
     catboost_kic = joblib.load(kic_model_path)
     print("Models loaded successfully!")
+    print(f"Catboost version used to train model: {catboost_hrc.get_param('versions')}")
+    print(f"Catboost version in streamlit app: {catboost.__version__}")
+
 except FileNotFoundError:
     st.error(f"Error: Model files not found. Ensure 'catboost_hrc.pkl' and 'catboost_kic.pkl' are in the same directory as this script.")
     st.stop()
 except Exception as e:
     st.error(f"Error loading models: {e}")
     st.stop()
-    
+
 # Streamlit UI
-st.title("Hot-Work Tool Steels Hardness & Toughness Prediction App")
+st.title("Steel Hardness & Toughness Prediction App")
 st.write("Enter the composition and processing parameters to predict HRC and KIC.")
 
 # User Inputs
@@ -46,9 +50,12 @@ if st.button("Predict HRC & KIC"):
 
     # Prepare input for model
     input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process_num, Hardening, Tempering]])
+    print(f"Input data shape: {input_data.shape}")
+    print(f"Type of C: {type(C)}")
+    print(f"Type of Si: {type(Si)}")
+    print(f"Type of Process_num: {type(Process_num)}")
 
     #Predict, Create a Catboost Pool Object
-    from catboost import Pool
     prediction_pool = Pool(data=input_data, cat_features=[9]) # 9 is the index of the 'Process' column
 
     # Predict
