@@ -25,7 +25,7 @@ except Exception as e:
     st.stop()
 
 # Streamlit UI
-st.title("Steel Hardness & Toughness Prediction App")
+st.title("Hot-Work Tool Steels Hardness & Toughness Prediction App")
 st.write("Enter the composition and processing parameters to predict HRC and KIC.")
 
 # User Inputs (with explicit type conversions)
