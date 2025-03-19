@@ -25,7 +25,7 @@ except Exception as e:
     st.stop()
 
 # Streamlit UI
-st.title("Hot-Work Tool Steels Hardness & Toughness Prediction App")
+st.title("Steel Hardness & Toughness Prediction App")
 st.write("Enter the composition and processing parameters to predict HRC and KIC.")
 
 # User Inputs (with explicit type conversions)
@@ -46,16 +46,16 @@ Process = st.selectbox("Process Type", ['ESR', 'Conventional', 'PM']) #Keep proc
 if st.button("Predict HRC & KIC"):
 
     # Prepare input for model
-    input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process, Hardening, Tempering]])# process is a string now.
+    input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process, Hardening, Tempering]])
     print(f"Input data shape: {input_data.shape}")
     print(f"Type of C: {type(C)}")
     print(f"Type of Si: {type(Si)}")
-    print(f"Type of Process: {type(Process)}") # Process is a string now.
+    print(f"Type of Process: {type(Process)}")
 
     assert input_data.shape == (1, 12), f"Expected shape (1, 12), but got {input_data.shape}"
 
     #Predict, Create a Catboost Pool Object
-    prediction_pool = Pool(data=input_data, cat_features=[9]) # 9 is the index of the 'Process' column
+    prediction_pool = Pool(data=input_data, cat_features=[9])
 
     # Predict
     hrc_prediction = catboost_hrc.predict(prediction_pool)[0]
