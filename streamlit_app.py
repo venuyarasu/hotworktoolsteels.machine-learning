@@ -4,8 +4,8 @@ import joblib
 import numpy as np
 
 # Load trained models
-hrc_model_path = 'catboost_hrc.pkl'
-kic_model_path = 'catboost_kic.pkl'
+hrc_model_path = 'C:/Users/vyarasu/catboost_hrc.pkl'
+kic_model_path = 'C:/Users/vyarasu/catboost_kic.pkl'
 
 catboost_hrc = joblib.load(hrc_model_path)
 catboost_kic = joblib.load(kic_model_path)
