@@ -24,14 +24,14 @@ V = st.number_input("Vanadium (%)", min_value=0.0, max_value=5.0, step=0.01)
 Ni = st.number_input("Nickel (%)", min_value=0.0, max_value=10.0, step=0.01)
 W = st.number_input("Tungsten (%)", min_value=0.0, max_value=10.0, step=0.01)
 N = st.number_input("Nitrogen (%)", min_value=0.0, max_value=0.5, step=0.01)
-Process = st.selectbox("Process Type", ['ESR', 'VAR', 'AOD', 'VIM'])
+Process = st.selectbox("Process Type", ['ESR', 'Conventional', 'PM'])
 Hardening = st.number_input("Hardening Temperature (°C)", min_value=500, max_value=1200, step=10)
 Tempering = st.number_input("Tempering Temperature (°C)", min_value=100, max_value=700, step=10)
 
 # Prediction button
 if st.button("Predict HRC & KIC"):
     # Convert categorical variable to numerical encoding
-    process_mapping = {'ESR': 0, 'VAR': 1, 'AOD': 2, 'VIM': 3}
+    process_mapping = {'ESR': 0, 'Conventional': 1, 'PM': 2}
     Process_num = process_mapping[Process]
     
     # Prepare input for model
