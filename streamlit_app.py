@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import os
 
 # Load trained models
 hrc_model_path = 'C:/Users/vyarasu/catboost_hrc.pkl'
