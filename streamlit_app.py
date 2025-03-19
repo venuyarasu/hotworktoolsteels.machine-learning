@@ -8,9 +8,18 @@ import os
 hrc_model_path = 'catboost_hrc.pkl'
 kic_model_path = 'catboost_kic.pkl'
 
-catboost_hrc = joblib.load(hrc_model_path)
-catboost_kic = joblib.load(kic_model_path)
-
+# Load trained models with error handling
+try:
+    catboost_hrc = joblib.load(hrc_model_path)
+    catboost_kic = joblib.load(kic_model_path)
+    print("Models loaded successfully!")
+except FileNotFoundError:
+    st.error(f"Error: Model files not found. Ensure 'catboost_hrc.pkl' and 'catboost_kic.pkl' are in the same directory as this script.")
+    st.stop()
+except Exception as e:
+    st.error(f"Error loading models: {e}")
+    st.stop()
+    
 # Streamlit UI
 st.title("Hot-Work Tool Steels Hardness & Toughness Prediction App")
 st.write("Enter the composition and processing parameters to predict HRC and KIC.")
