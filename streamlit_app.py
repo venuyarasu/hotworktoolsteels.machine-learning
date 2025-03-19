@@ -25,7 +25,7 @@ except Exception as e:
     st.stop()
 
 # Streamlit UI
-st.title("Steel Hardness & Toughness Prediction App")
+st.title("Hot-Work Tool Steels Hardness & Toughness Prediction App")
 st.write("Enter the composition and processing parameters to predict HRC and KIC.")
 
 # User Inputs (with explicit type conversions)
@@ -40,20 +40,17 @@ W = float(st.number_input("Tungsten (%)", min_value=0.0, max_value=10.0, step=0.
 N = float(st.number_input("Nitrogen (%)", min_value=0.0, max_value=0.5, step=0.01))
 Hardening = float(st.number_input("Hardening Temperature (°C)", min_value=500, max_value=1200, step=10))
 Tempering = float(st.number_input("Tempering Temperature (°C)", min_value=100, max_value=700, step=10))
-Process = st.selectbox("Process Type", ['ESR', 'Conventional', 'PM'])
+Process = st.selectbox("Process Type", ['ESR', 'Conventional', 'PM']) #Keep process as a string
 
 # Prediction button
 if st.button("Predict HRC & KIC"):
-    # Convert categorical variable to numerical encoding
-    process_mapping = {'ESR': 0, 'Conventional': 1, 'PM': 2}
-    Process_num = int(process_mapping[Process])
 
     # Prepare input for model
-    input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process_num, Hardening, Tempering]])
+    input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process, Hardening, Tempering]])# process is a string now.
     print(f"Input data shape: {input_data.shape}")
     print(f"Type of C: {type(C)}")
     print(f"Type of Si: {type(Si)}")
-    print(f"Type of Process_num: {type(Process_num)}")
+    print(f"Type of Process: {type(Process)}") # Process is a string now.
 
     assert input_data.shape == (1, 12), f"Expected shape (1, 12), but got {input_data.shape}"
 
