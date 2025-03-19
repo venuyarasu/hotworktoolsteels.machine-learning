@@ -4,6 +4,8 @@ import numpy as np
 import os
 from catboost import Pool
 import catboost
+import plotly.graph_objects as go
+import plotly.express as px
 
 # Model file paths (relative to the script location)
 hrc_model_path = 'catboost_hrc.pkl'
@@ -64,3 +66,26 @@ if st.button("Predict HRC & KIC"):
     # Display results
     st.success(f"Predicted HRC: {hrc_prediction:.2f}")
     st.success(f"Predicted KIC: {kic_prediction:.2f}")
+
+# Display results
+st.success(f"Predicted HRC: {hrc_prediction:.2f}")
+st.success(f"Predicted KIC: {kic_prediction:.2f}")
+
+#Visualization of results.
+fig = go.Figure(data=[
+    go.Bar(name='HRC', x=['Predicted'], y=[hrc_prediction]),
+    go.Bar(name='KIC', x=['Predicted'], y=[kic_prediction])
+])
+st.plotly_chart(fig)
+
+#Feature Importance
+hrc_feature_importance = catboost_hrc.get_feature_importance(prettified=True)
+kic_feature_importance = catboost_kic.get_feature_importance(prettified=True)
+
+st.subheader("HRC Feature Importance")
+fig_hrc_importance = px.bar(hrc_feature_importance, x='Feature Id', y='Importances')
+st.plotly_chart(fig_hrc_importance)
+
+st.subheader("KIC Feature Importance")
+fig_kic_importance = px.bar(kic_feature_importance, x='Feature Id', y='Importances')
+st.plotly_chart(fig_kic_importance)
