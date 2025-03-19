@@ -43,14 +43,18 @@ if st.button("Predict HRC & KIC"):
     # Convert categorical variable to numerical encoding
     process_mapping = {'ESR': 0, 'Conventional': 1, 'PM': 2}
     Process_num = process_mapping[Process]
-    
+
     # Prepare input for model
     input_data = np.array([[C, Si, Mn, Cr, Mo, V, Ni, W, N, Process_num, Hardening, Tempering]])
-    
+
+    #Predict, Create a Catboost Pool Object
+    from catboost import Pool
+    prediction_pool = Pool(data=input_data, cat_features=[9]) # 9 is the index of the 'Process' column
+
     # Predict
-    hrc_prediction = catboost_hrc.predict(input_data)[0]
-    kic_prediction = catboost_kic.predict(input_data)[0]
-    
+    hrc_prediction = catboost_hrc.predict(prediction_pool)[0]
+    kic_prediction = catboost_kic.predict(prediction_pool)[0]
+
     # Display results
     st.success(f"Predicted HRC: {hrc_prediction:.2f}")
     st.success(f"Predicted KIC: {kic_prediction:.2f}")
